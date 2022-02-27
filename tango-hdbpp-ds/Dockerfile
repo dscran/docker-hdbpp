@@ -12,7 +12,7 @@ MAINTAINER MBI Berlin, Division B
 
 ### build HDB++ packages
 ENV DEBIAN_FRONTEND=noninteractive
-COPY setup/010*sh /
+COPY setup/01*sh /
 RUN /010-install_deps.sh
 RUN /011-build-libhdbpp.sh
 RUN /012-build-libhdbpp-mysql.sh
@@ -34,7 +34,7 @@ COPY --from=build /hdbpp-es_2.0.0-SNAPSHOT_amd64.deb /
 
 COPY setup/tangorc /etc/tangorc
 COPY setup/020-install-hdbpp-ds.sh /
-RUN 020-install-hdbpp-ds.sh
+RUN /020-install-hdbpp-ds.sh
 
 
 CMD ["/usr/local/bin/boot-debian-base"]
