@@ -6,8 +6,7 @@ MAINTAINER MBI Berlin, Division B
 # https://gitlab.com/s2innovation/tangobox-docker
 #
 # Use debain base images by Johann Goerzen, as they provide familiar
-# systemd init system and automatic security updates in a very slim
-# container.
+# systemd init system and automatic security updates in a slim container.
 
 
 ### build HDB++ packages
@@ -20,12 +19,8 @@ RUN /013-build-hdbpp-cm.sh
 RUN /014-build-hdbpp-es.sh
 
 
-### deploy in fresh container
+### install in fresh container for deployment
 FROM jgoerzen/debian-base-minimal:bullseye
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
-    tango-starter \
-    libmariadb3
 
 COPY --from=build /libhdbpp_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /libhdbpp-mysql_1.2.0-SNAPSHOT_amd64.deb /
@@ -34,6 +29,7 @@ COPY --from=build /hdbpp-es_2.0.0-SNAPSHOT_amd64.deb /
 
 COPY setup/tangorc /etc/tangorc
 COPY setup/020-install-hdbpp-ds.sh /
+
 RUN /020-install-hdbpp-ds.sh
 
 
