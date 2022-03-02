@@ -23,15 +23,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 COPY --from=build /libhdbpp_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /libhdbpp-mysql_1.2.0-SNAPSHOT_amd64.deb /
-COPY --from=build /hdbpp-cm_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /hdbpp-es_2.0.0-SNAPSHOT_amd64.deb /
 
-COPY setup/020-install-hdbpp-ds.sh /
-COPY setup/start_tango-starter.sh /usr/local/bin/start_tango-starter.sh
+COPY setup/020-install-es.sh /
+COPY setup/start_device_server.sh /usr/local/bin/start_device_server.sh
 
-RUN /020-install-hdbpp-ds.sh
+RUN /020-install-es.sh
 
-# user tango already created by installing tango-starter from apt
-USER tango
-
-CMD ["/usr/local/bin/start_tango-starter.sh"]
+CMD ["/usr/local/bin/start_device_server.sh", "hdb++es-srv"]

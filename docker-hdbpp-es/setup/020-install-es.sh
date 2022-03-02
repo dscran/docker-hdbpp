@@ -3,11 +3,8 @@
 
 apt-get update
 apt-get install -y --no-install-recommends \
-    tango-starter \
-    libmariadb3 \
-    inetutils-ping \
-    procps \
-    wait-for-it
+    libtango9 \
+    libmariadb3
 
 dpkg -i /*deb
 ldconfig
