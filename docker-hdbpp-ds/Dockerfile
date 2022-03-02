@@ -1,12 +1,10 @@
-FROM jgoerzen/debian-base-minimal:bullseye as build
+FROM debian:bullseye-slim as build
 MAINTAINER MBI Berlin, Division B
 # some concepts from
 # https://salsa.debian.org/jgoerzen/docker-debian-base
 # and
 # https://gitlab.com/s2innovation/tangobox-docker
 #
-# Use debain base images by Johann Goerzen, as they provide familiar
-# systemd init system and automatic security updates in a slim container.
 
 
 ### build HDB++ packages
@@ -20,17 +18,20 @@ RUN /014-build-hdbpp-es.sh
 
 
 ### install in fresh container for deployment
-FROM jgoerzen/debian-base-minimal:bullseye
+FROM debian:bullseye-slim
+ENV DEBIAN_FRONTEND=noninteractive
 
 COPY --from=build /libhdbpp_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /libhdbpp-mysql_1.2.0-SNAPSHOT_amd64.deb /
 COPY --from=build /hdbpp-cm_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /hdbpp-es_2.0.0-SNAPSHOT_amd64.deb /
 
-COPY setup/tangorc /etc/tangorc
 COPY setup/020-install-hdbpp-ds.sh /
+COPY setup/start_tango-starter.sh /usr/local/bin/start_tango-starter.sh
 
 RUN /020-install-hdbpp-ds.sh
 
+# user tango already created by installing tango-starter from apt
+USER tango
 
-CMD ["/usr/local/bin/boot-debian-base"]
+CMD ["/usr/local/bin/start_tango-starter.sh"]
