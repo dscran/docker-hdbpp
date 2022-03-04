@@ -10,7 +10,7 @@ MAINTAINER MBI Berlin, Division B
 # container.
 
 ### install and setup mariadb database
-COPY setup/010-setup.sh /
+COPY setup/ /
 RUN /010-setup.sh
 
 

@@ -1,4 +1,4 @@
-FROM mysql:debian
+FROM mysql:5.7-debian
 MAINTAINER MBI Berlin, Division B
 # some concepts from
 # https://salsa.debian.org/jgoerzen/docker-debian-base
