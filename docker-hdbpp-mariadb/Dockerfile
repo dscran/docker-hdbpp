@@ -11,6 +11,10 @@ MAINTAINER MBI Berlin, Division B
 
 ### install and setup mariadb database
 COPY setup/ /
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV MARIADB_ROOT_PASSWORD=dbroot
+
 RUN /010-setup.sh
 
 

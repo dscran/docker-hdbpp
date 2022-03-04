@@ -7,8 +7,9 @@ apt-get update
 apt-get install -y --no-install-recommends \
     mariadb-server \
 
+mariadb-secure-installation
 # perform mariadb_secure_install actions
-mysql -fu root < /mariadb_secure_installation.sql
+# mysql -fu root < /mariadb_secure_installation.sql
 
 # create database and default users
 mysql -u root < /create_hdbpp_users.sql
