@@ -8,26 +8,26 @@
 #
 # Variables used: (Note: "tango_server" refers to the device server, NOT the TANGO_HOST!)
 #
-#   - TANGO_SERVER_INSTANCE: Instance name to start
-#   - TANGO_SERVER_PORT: The fixed ORBEndPoint port. The container needs to publish this port.
-#   - TANGO_SERVER_HOSTNAME: hostname of the docker HOST machine.
+#   - INSTANCE_NAME: Instance name to start
+#   - OMNIORB_PORT: The fixed ORBEndPoint port. The container needs to publish this port.
+#   - OMNIORB_PUBLISH: hostname of the docker HOST machine.
 
 DSERVER=$1
 
-if [[ -z $TANGO_SERVER_INSTANCE ]]; then
-    echo "TANGO_SERVER_INSTANCE not defined!"
+if [[ -z $INSTANCE_NAME ]]; then
+    echo "INSTANCE_NAME not defined!"
     exit 2
 fi
 
-if [[ -z $TANGO_SERVER_PORT ]]; then
+if [[ -z $OMNIORB_PORT ]]; then
     echo "TANGO_SERVER_PORT not defined!"
     exit 2
 fi
 
-if [[ -z $TANGO_SERVER_PUBLISH ]]; then
-    echo "TANGO_SERVER_PUBLISH not defined!"
+if [[ -z $OMNIORB_PUBLISH ]]; then
+    echo "OMNIORB_PUBLISH not defined!"
     exit 2
 fi
 
-$DSERVER $TANGO_SERVER_INSTANCE -ORBendPoint giop:tcp::$TANGO_SERVER_PORT -ORBendPointPublish giop:tcp:$TANGO_SERVER_HOSTNAME:$TANGO_SERVER_PORT
+$DSERVER $INSTANCE_NAME -ORBendPoint giop:tcp::$OMNIORB_PORT -ORBendPointPublish giop:tcp:$OMNIORB_PUBLISH:$OMNIORB_PORT
 
