@@ -48,5 +48,18 @@ services:
       - OMNIORB_PUBLISH=curie.maxi.lab
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  egiga2m:
+    image: php:7.2-apache
+    hostname: egiga2m
+    container_name: egiga2m
+    networks:
+      - hdbnet
+    ports:
+      - "80:80"
+    volumes:
+      - ./eGiga2m:/app
+      - ./conf/hdbpp_conf.php:/app/lib/service/hdbpp_conf.php
+      - ./conf/egiga2m_conf.js:/app/egiga2m_conf.js
+
 
 
