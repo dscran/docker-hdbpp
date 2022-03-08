@@ -1,0 +1,37 @@
+version: '3.7'
+
+networks:
+  hdbnet:
+    driver: bridge
+
+services:
+  # hdbpp:
+  #   image: hdbpp-ds
+  #   networks:
+  #     - tangonet
+  #   restart: always
+  #   container_name: hdbpp-ds
+  #   hostname: hdbpp-ds
+  #   ports:
+  #     - "55000-55010:55000-55010"
+  #   environment:
+  #     - TANGO_HOST=tangohost:10000
+  #     - ORBendPoint=giop:tcp::55000-55010
+  #     - ORBendPointPublish=munin.localdomain
+  #   depends_on:
+  #     - hdbpp-database
+  #     - tangohost
+  hdbpp-database:
+    image: mariadb:10.8
+    networks:
+      - hdbnet
+    ports:
+      - "3306:3306"
+    hostname: hdbpp-db
+    container_name: hdbpp-db
+    environment:
+      - MARIADB_ROOT_PASSWORD=dbroot
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+      - ./database/hdbpp:/var/lib/mysql
+
