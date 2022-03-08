@@ -19,8 +19,8 @@ RUN /014-build-hdbpp-es.sh
 
 ### install in fresh container for deployment
 FROM debian:bullseye-slim
-ENV DEBIAN_FRONTEND=noninteractive
 
+ENV DEBIAN_FRONTEND=noninteractive
 COPY --from=build /libhdbpp_2.0.0-SNAPSHOT_amd64.deb /
 COPY --from=build /libhdbpp-mysql_1.2.0-SNAPSHOT_amd64.deb /
 COPY --from=build /hdbpp-cm_2.0.0-SNAPSHOT_amd64.deb /
