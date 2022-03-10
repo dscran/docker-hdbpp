@@ -1,5 +1,5 @@
 <?php
-define("HOST", "hdbpp-db.hdbnet");
+define("HOST", "hdbpp-db");
 define("USERNAME", "hdbppro");
 define("PASSWORD", "hdbppro");
 define("PORT", 3306);
