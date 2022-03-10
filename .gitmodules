@@ -1,3 +1,5 @@
-[submodule "docker-egiga2m/eGiga2m"]
+[submodule "eGiga2m"]
 	path = eGiga2m
 	url = https://github.com/MBI-Div-B/eGiga2m.git
+	branch = master
+	update = merge
