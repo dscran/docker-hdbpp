@@ -10,17 +10,18 @@ services:
     networks:
       - hdbnet
     ports:
-      - "3306:3306"
+      - "3307:3306"
     hostname: hdbpp-db
     container_name: hdbpp-db
     environment:
       - MARIADB_ROOT_PASSWORD=dbroot
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
-      - ./database/hdbpp:/var/lib/mysql
+      - /data/hdbpp:/var/lib/mysql
   hdbpp-cm:
     image: hdbpp-cm:latest
     hostname: hdbpp-cm
+    restart: always
     container_name: hdbpp-cm
     networks:
       - hdbnet
@@ -36,6 +37,7 @@ services:
   hdbpp-es:
     image: hdbpp-es:latest
     hostname: hdbpp-es
+    restart: always
     container_name: hdbpp-es
     networks:
       - hdbnet
@@ -48,8 +50,10 @@ services:
       - OMNIORB_PUBLISH=curie.maxi.lab
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    depends_on:
+      - hdbpp-database
   egiga2m:
-    image: php:7.2-apache
+    image: webdevops/php-apache:latest
     hostname: egiga2m
     container_name: egiga2m
     networks:
@@ -57,9 +61,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./eGiga2m:/app
+      - ./eGiga2m/:/app/
       - ./conf/hdbpp_conf.php:/app/lib/service/hdbpp_conf.php
       - ./conf/egiga2m_conf.js:/app/egiga2m_conf.js
-
-
 
