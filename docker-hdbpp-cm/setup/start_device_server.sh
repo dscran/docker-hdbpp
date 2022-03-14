@@ -33,3 +33,4 @@ echo $TANGO_HOST > /etc/tangorc
 
 $DSERVER $INSTANCE_NAME -ORBendPoint giop:tcp::$OMNIORB_PORT -ORBendPointPublish giop:tcp:$OMNIORB_PUBLISH:$OMNIORB_PORT
 
+exit $?
