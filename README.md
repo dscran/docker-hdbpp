@@ -8,6 +8,14 @@ docker container to provide HDB++ archiving for existing tango control system
 
 ## run
 
+create `.env` file with following contents:
+
+```
+TANGO_HOST=<your_tango_host>:<port>
+OMNIORB_PUBLISH=<docker_host>
+DATAFOLDER=<local_hdbpp_data_folder>
+```
+
 `docker compose up`
 
 
