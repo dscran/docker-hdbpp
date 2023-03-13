@@ -1,6 +1,6 @@
 #! /bin/bash
 
-REPOSITORY=https://github.com/tango-controls-hdbpp/hdbpp-es.git
+REPOSITORY=https://gitlab.com/tango-controls/hdbpp/libhdbpp.git
 _GITNAME=${REPOSITORY##*/}
 PKGNAME=${_GITNAME%.*}
 
@@ -13,7 +13,7 @@ cmake ..
 make
 checkinstall -y \
     --pakdir=/ \
-    --install=no \
+    --install=yes \
     --fstrans=no \
     --showinstall=no \
     --backup=no \
@@ -29,6 +29,6 @@ checkinstall -y \
     --pkgversion="2.0.0" \
     --pkgrelease="SNAPSHOT" \
     --pkgname=$PKGNAME \
-    --requires="libtango9,libhdbpp" \
+    --requires="libzmq5,libomniorb4-2" \
     make install
 

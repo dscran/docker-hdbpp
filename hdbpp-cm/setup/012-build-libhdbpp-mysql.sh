@@ -1,6 +1,6 @@
 #! /bin/bash
 
-REPOSITORY=https://github.com/tango-controls-hdbpp/libhdbpp-mysql.git
+REPOSITORY=https://gitlab.com/tango-controls/hdbpp/libhdbpp-mysql.git
 _GITNAME=${REPOSITORY##*/}
 PKGNAME=${_GITNAME%.*}
 

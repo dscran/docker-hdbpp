@@ -1,6 +1,6 @@
 #! /bin/bash
 
-REPOSITORY=https://github.com/tango-controls-hdbpp/hdbpp-cm.git
+REPOSITORY=https://gitlab.com/tango-controls/hdbpp/hdbpp-es.git
 _GITNAME=${REPOSITORY##*/}
 PKGNAME=${_GITNAME%.*}
 

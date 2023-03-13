@@ -6,8 +6,9 @@
 # These are read from environment variables, to allow for easy configuration
 # when deploying the container.
 #
-# Variables used: (Note: "tango_server" refers to the device server, NOT the TANGO_HOST!)
+# Variables used: (Note: "$DSERVER" refers to the device server, NOT the TANGO_HOST!)
 #
+#   - DSERVER: executable name for tango device server
 #   - INSTANCE_NAME: Instance name to start
 #   - OMNIORB_PORT: The fixed ORBEndPoint port. The container needs to publish this port.
 #   - OMNIORB_PUBLISH: hostname of the docker HOST machine.

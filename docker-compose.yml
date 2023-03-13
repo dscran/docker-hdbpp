@@ -1,14 +1,15 @@
 version: '3.7'
 
+### Make sure environment variables in .env file are correct!
+
 networks:
-  hdbnet:
-    driver: bridge
+  hdbpp:
 
 services:
   hdbpp-database:
     image: mariadb:10.8
     networks:
-      - hdbnet
+      - hdbpp
     ports:
       - "3307:3306"
     hostname: hdbpp-db
@@ -17,51 +18,50 @@ services:
       - MARIADB_ROOT_PASSWORD=dbroot
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
-      - /data/hdbpp:/var/lib/mysql
+      - ${DATAFOLDER}:/var/lib/mysql
+
   hdbpp-cm:
-    image: hdbpp-cm:latest
+    build: ./hdbpp-cm
     hostname: hdbpp-cm
     restart: always
     container_name: hdbpp-cm
     networks:
-      - hdbnet
+      - hdbpp
     ports:
       - "45001:45001"
     environment:
-      - TANGO_HOST=curie.maxi.lab:10000
-      - INSTANCE_NAME=2
+      - TANGO_HOST=${TANGO_HOST}
+      - INSTANCE_NAME=1
       - OMNIORB_PORT=45001
-      - OMNIORB_PUBLISH=curie.maxi.lab
+      - OMNIORB_PUBLISH=${OMNIORB_PUBLISH}
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
   hdbpp-es:
-    image: hdbpp-es:latest
+    build: ./hdbpp-es
     hostname: hdbpp-es
     restart: always
     container_name: hdbpp-es
     networks:
-      - hdbnet
+      - hdbpp
     ports:
       - "45002:45002"
     environment:
-      - TANGO_HOST=curie.maxi.lab:10000
-      - INSTANCE_NAME=2
+      - TANGO_HOST=${TANGO_HOST}
+      - INSTANCE_NAME=1
       - OMNIORB_PORT=45002
-      - OMNIORB_PUBLISH=curie.maxi.lab
+      - OMNIORB_PUBLISH=${OMNIORB_PUBLISH}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
       - hdbpp-database
+
   egiga2m:
-    image: webdevops/php-apache:latest
+    build: ./eGiga2m
     hostname: egiga2m
     container_name: egiga2m
     networks:
-      - hdbnet
+      - hdbpp
     ports:
       - "80:80"
-    volumes:
-      - ./eGiga2m/:/app/
-      - ./conf/hdbpp_conf.php:/app/lib/service/hdbpp_conf.php
-      - ./conf/egiga2m_conf.js:/app/egiga2m_conf.js
 
