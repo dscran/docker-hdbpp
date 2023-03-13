@@ -34,8 +34,9 @@ services:
       - INSTANCE_NAME=1
       - OMNIORB_PORT=45001
       - OMNIORB_PUBLISH=${OMNIORB_PUBLISH}
+    # uncomment and edit if your docker host and tango host are the same machine!
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "celsius.evaporator.lab:host-gateway"
 
   hdbpp-es:
     build: ./hdbpp-es
@@ -51,8 +52,9 @@ services:
       - INSTANCE_NAME=1
       - OMNIORB_PORT=45002
       - OMNIORB_PUBLISH=${OMNIORB_PUBLISH}
+    # uncomment and edit if your docker host and tango host are the same machine!
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "celsius.evaporator.lab:host-gateway"
     depends_on:
       - hdbpp-database
 
